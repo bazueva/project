@@ -48,7 +48,7 @@ AppAsset::register($this);
                     [
                         'label' => 'Редактировать новости',
                         'url' => ['/cms/news'],
-                        'visible' => Yii::$app->user->identity->username == 'admin'
+                        'visible' => (!Yii::$app->user->isGuest && Yii::$app->user->identity->username == 'admin')
                     ]
                 ]
             ],

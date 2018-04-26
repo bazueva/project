@@ -21,7 +21,7 @@ class CmsModule extends \yii\base\Module
             return false;
         }
 
-        if (\Yii::$app->user->identity->username == 'admin') {
+        if (!\Yii::$app->user->isGuest && \Yii::$app->user->identity->username == 'admin') {
             return true;
         } else {
             \Yii::$app->getResponse()->redirect(\Yii::$app->getHomeUrl());
