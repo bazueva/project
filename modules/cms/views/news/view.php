@@ -3,7 +3,8 @@ use yii\widgets\DetailView;
 
 ?>
 <h1>Просмотр новости № <?=$model->id?></h1>
-<? echo DetailView::widget([
+<?php
+echo DetailView::widget([
     'model' => $model,
     'attributes' => [
         'id',

@@ -2,13 +2,14 @@
 use yii\widgets\ListView;
 
 ?>
-    <div class="body-content">
-        <div class="row">
-            <h1><?=$this->title?></h1>
-            <?
+<div class="body-content">
+    <div class="row">
+        <h1><?=$this->title?></h1>
+        <?php
             echo ListView::widget([
                 'dataProvider' => $dataProvider,
                 'itemView' => '_itemList'
-            ]); ?>
-        </div>
+            ]);
+        ?>
     </div>
+</div>
