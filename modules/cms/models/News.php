@@ -4,7 +4,6 @@ namespace app\modules\cms\models;
 
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
-use app\modules\cms\behaviors\HookBehavior;
 
 /**
  * Модель новости.
@@ -12,25 +11,11 @@ use app\modules\cms\behaviors\HookBehavior;
 class News extends \yii\db\ActiveRecord
 {
     /**
-     * Метка удаления изображения.
+     * Метка удаления изображения
      * 
      * @var bool
      */
     public $delete_image;
-
-    /**
-     * Адрес детального просмотра новости.
-     *
-     * @var string
-     */
-    public $urlNews = '/news/view';
-
-    /**
-     * Папка для загрузки изображений.
-     *
-     * @var string
-     */
-    public $dirImages = '@web/uploads/';
 
     /**
      * @inheritdoc
@@ -47,7 +32,7 @@ class News extends \yii\db\ActiveRecord
     {
         return [
             [
-                ['name'],
+                'name',
                 'required'
             ],
             [
@@ -56,7 +41,7 @@ class News extends \yii\db\ActiveRecord
                 'max' => 255
             ],
             [
-                ['description', 'content', 'slug'],
+                ['description', 'content'],
                 'string'
             ],
             [
@@ -72,10 +57,6 @@ class News extends \yii\db\ActiveRecord
             [
                 ['act', 'delete_image'],
                 'boolean'
-            ],
-            [
-                'slug',
-                'unique'
             ]
         ];
     }
@@ -87,7 +68,6 @@ class News extends \yii\db\ActiveRecord
     {
         return [
             'name' => 'Название',
-            'slug' => 'Адрес страницы',
             'description' => 'Краткое описание',
             'content' => 'Текст новости',
             'date' => 'Дата',
@@ -105,15 +85,11 @@ class News extends \yii\db\ActiveRecord
     {
         return  [
            [
-               'class' => TimestampBehavior::class,
+               'class' => TimestampBehavior::className(),
                'attributes' => [
                    ActiveRecord::EVENT_BEFORE_INSERT => ['created_at' , 'updated_at'],
                    ActiveRecord::EVENT_BEFORE_UPDATE => ['updated_at']
                ]
-           ],
-           [
-               'class' => HookBehavior::class,
-               'text' => 'Добавлена новость'
            ]
         ];
     }
@@ -133,4 +109,3 @@ class News extends \yii\db\ActiveRecord
         return parent::beforeSave($insert);
     }
 }
-

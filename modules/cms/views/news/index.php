@@ -9,7 +9,7 @@ use yii\widgets\Pjax;
 
 <h1>Новости</h1>
 <a class="btn btn-success" href="<?= Url::to(['news/create'])?>">Создать новость</a>
-<?php
+<?
 Pjax::begin(['id' => 'pjax-container']);
 echo GridView::widget([
     'dataProvider' => $dataProvider,
