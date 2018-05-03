@@ -1,7 +1,7 @@
 <h1><?=$model->name?></h1>
 <div class="news-date"><?=Yii::$app->formatter->asDate($model->date, 'dd.MM.yyyy') ?></div>
 <div class="news-image">
-    <?php
+    <?
     echo Yii::$app->thumbnail->img(
             Yii::$app->params['pathFiles'].$model->image, [
                 'thumbnail' => [
