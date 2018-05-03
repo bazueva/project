@@ -10,7 +10,7 @@ use yii\helpers\{
     <div class="news-name">
         <a href="<?=Url::toRoute(['news/view', 'id' => $model->id])?>"><?= $model->name ?></a>
     </div>
-    <?
+    <?php
     echo Yii::$app->thumbnail->img(
              Yii::$app->params['pathFiles'].$model->image, [
                 'thumbnail' => [
