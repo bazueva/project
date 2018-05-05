@@ -2,13 +2,12 @@
 
 namespace app\modules\cms\behaviors;
 
-use app\modules\cms\components\HookRocketManager;
 use yii\db\ActiveRecord;
 
 /**
  * Поведение для отправки сообщения.
  */
-class HookBehavior extends \yii\base\Behavior
+class NotifyBehavior extends \yii\base\Behavior
 {
     /**
      * Заголовок сообщения.
@@ -23,20 +22,16 @@ class HookBehavior extends \yii\base\Behavior
     public function events(): array
     {
         return [
-            ActiveRecord::EVENT_AFTER_INSERT => 'afterInsert'
+            ActiveRecord::EVENT_AFTER_INSERT => 'sendMessageToRocketChat'
         ];
     }
 
     /**
-     * @inheritdoc
+     * Отправка сообщения в RocketChat.
      */
-    public function afterInsert(): void
+    public function sendMessageToRocketChat(): void
     {
-        $hookRocket = new HookRocketManager(
-            [
-                'text' => $this->text
-            ]
-        );
-        $hookRocket->sendMessage($this->owner);
+        \Yii::$app->notifyRocketManager->text = $this->text;
+        \Yii::$app->notifyRocketManager->sendMessage($this->owner);
     }
 }

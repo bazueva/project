@@ -4,7 +4,7 @@ namespace app\modules\cms\models;
 
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
-use app\modules\cms\behaviors\HookBehavior;
+use app\modules\cms\behaviors\NotifyBehavior;
 
 /**
  * Модель новости.
@@ -108,7 +108,7 @@ class News extends \yii\db\ActiveRecord
                ]
            ],
            [
-                'class' => HookBehavior::class,
+                'class' => NotifyBehavior::class,
                 'text' => 'Добавлена новость'
            ]
         ];

@@ -8,7 +8,7 @@ use yii\helpers\Url;
 /**
  * Отправка сообщений в RocketChat.
  */
-class HookRocketManager extends \yii\base\Component
+class NotifyRocketManager extends \yii\base\Component
 {
     /**
      * Имя настройки адреса в СУ.
