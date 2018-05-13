@@ -6,6 +6,11 @@ use yii\db\ActiveRecord;
 
 /**
  * Настройки приложения.
+ *
+ * @property $id            Идентификатор настройки
+ * @property $name_setting  Имя настройки
+ * @property $name          Название настройки
+ * @property $value         Значение
  */
 class Settings extends ActiveRecord
 {

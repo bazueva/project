@@ -17,11 +17,11 @@ class ContactFormCest
         $I->submitForm('#contact-form', []);
         $I->expectTo('see validations errors');
         $I->see('Contact', 'h1');
-        $I->see('Name cannot be blank');
-        $I->see('Email cannot be blank');
-        $I->see('Subject cannot be blank');
-        $I->see('Body cannot be blank');
-        $I->see('The verification code is incorrect');
+        $I->see('Необходимо заполнить «Name»');
+        $I->see('Необходимо заполнить «Email»');
+        $I->see('Необходимо заполнить «Subject»');
+        $I->see('Необходимо заполнить «Body»');
+        $I->see('Неправильный проверочный код');
     }
 
     public function submitFormWithIncorrectEmail(\FunctionalTester $I)
@@ -34,11 +34,11 @@ class ContactFormCest
             'ContactForm[verifyCode]' => 'testme',
         ]);
         $I->expectTo('see that email address is wrong');
-        $I->dontSee('Name cannot be blank', '.help-inline');
-        $I->see('Email is not a valid email address.');
-        $I->dontSee('Subject cannot be blank', '.help-inline');
-        $I->dontSee('Body cannot be blank', '.help-inline');
-        $I->dontSee('The verification code is incorrect', '.help-inline');        
+        $I->dontSee('Необходимо заполнить «Name»', '.help-inline');
+        $I->see('Значение «Email» не является правильным email адресом');
+        $I->dontSee('Необходимо заполнить «Subject»', '.help-inline');
+        $I->dontSee('Необходимо заполнить «Body»', '.help-inline');
+        $I->dontSee('Неправильный проверочный код', '.help-inline');
     }
 
     public function submitFormSuccessfully(\FunctionalTester $I)
