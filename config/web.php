@@ -50,17 +50,15 @@ $config = [
         ],
         'db' => $db,
         'urlManager' => [
-//            'enablePrettyUrl' => true,
             'showScriptName' => false,
-            'rules' => [
-                'news' => 'news/index'
-//                'cms/' => 'cms/default/index'
-            ],
         ],
         'thumbnail' => [
             'class' => 'sadovojav\image\Thumbnail',
             'cachePath' => 'runtime/thumbnail'
         ],
+        'notifyRocketManager' => [
+            'class' => 'app\modules\cms\components\NotifyRocketManager'
+        ]
     ],
     'params' => $params,
 ];
