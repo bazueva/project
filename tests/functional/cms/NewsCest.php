@@ -80,7 +80,7 @@ class NewsCest {
 
         //возвращаем обратно
         News::deleteAll(['name' => 'FunctionalTestName', 'description' => 'FunctionalTestDescription']);
-        unlink(\Yii::$app->basePath . '/web/uploads/1.jpg');
+//        unlink(\Yii::$app->basePath . '/web/uploads/1.jpg');
     }
 
     /**

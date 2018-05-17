@@ -1,7 +1,7 @@
 <?php
 
 $params = require __DIR__ . '/params.php';
-if (YII_ENV) {
+if (YII_ENV && constant('YII_ENV') == 'test') {
     $db = require __DIR__ . '/test_db.php';
 } else {
     $db = require __DIR__ . '/db.php';

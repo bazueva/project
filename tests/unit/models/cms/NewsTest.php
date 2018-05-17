@@ -2,6 +2,7 @@
 
 use app\modules\cms\models\News;
 use app\tests\models\NotifyBehaviorTest;
+use yii\web\UploadedFile;
 
 /**
  * Тестирование новостей в СУ.
@@ -131,14 +132,24 @@ class NewsTest extends \Codeception\Test\Unit
         $news = new News([
             'name' => 'Тест Image',
         ]);
-        $file = new \yii\web\UploadedFile([
-            'name'     => '1.jpg',
-            'type'     => 'jpg',
-            'error'    => UPLOAD_ERR_OK,
-            'size'     => filesize(codecept_data_dir( 'upload/1.jpg')),
-            'tempName' => codecept_data_dir( 'upload/1.jpg'),
-        ]);
-        $news->image = $file;
+        $uploadedFile = $this->getMockBuilder(UploadedFile::class)
+            ->setMethods(['saveAs'])
+            ->getMock();
+        $uploadedFile->expects($this->once())->method('saveAs')->will(
+            $this->returnCallback(
+                function($file) use($uploadedFile) {
+                    return copy($uploadedFile->tempName, \Yii::$app->basePath . '/web/' . $file);
+                }
+            )
+        );
+        /* @var $uploadedFile UploadedFile */
+        $uploadedFile->name = '1.jpg';
+        $uploadedFile->type = 'jpg';
+        $uploadedFile->error = 'UPLOAD_ERR_OK';
+        $uploadedFile->size = filesize(codecept_data_dir( 'upload/1.jpg'));
+        $uploadedFile->tempName = codecept_data_dir( 'upload/1.jpg');
+
+        $news->image = $uploadedFile;
 
         $news->detachBehavior('notifyBehavior');
         $news->save();

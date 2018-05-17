@@ -1,5 +1,7 @@
 <?php
 
+use app\tests\_pages\ContactFormPage;
+
 class ContactFormCest 
 {
     public function _before(\FunctionalTester $I)
@@ -14,7 +16,7 @@ class ContactFormCest
 
     public function submitEmptyForm(\FunctionalTester $I)
     {
-        $I->submitForm('#contact-form', []);
+        $I->submitForm(ContactFormPage::$formSelector, []);
         $I->expectTo('see validations errors');
         $I->see('Contact', 'h1');
         $I->see('Необходимо заполнить «Name»');
@@ -26,7 +28,7 @@ class ContactFormCest
 
     public function submitFormWithIncorrectEmail(\FunctionalTester $I)
     {
-        $I->submitForm('#contact-form', [
+        $I->submitForm(ContactFormPage::$formSelector, [
             'ContactForm[name]' => 'tester',
             'ContactForm[email]' => 'tester.email',
             'ContactForm[subject]' => 'test subject',
@@ -34,16 +36,16 @@ class ContactFormCest
             'ContactForm[verifyCode]' => 'testme',
         ]);
         $I->expectTo('see that email address is wrong');
-        $I->dontSee('Необходимо заполнить «Name»', '.help-inline');
+        $I->dontSee('Необходимо заполнить «Name»', ContactFormPage::$formErrorSelector);
         $I->see('Значение «Email» не является правильным email адресом');
-        $I->dontSee('Необходимо заполнить «Subject»', '.help-inline');
-        $I->dontSee('Необходимо заполнить «Body»', '.help-inline');
-        $I->dontSee('Неправильный проверочный код', '.help-inline');
+        $I->dontSee('Необходимо заполнить «Subject»', ContactFormPage::$formErrorSelector);
+        $I->dontSee('Необходимо заполнить «Body»', ContactFormPage::$formErrorSelector);
+        $I->dontSee('Неправильный проверочный код', ContactFormPage::$formErrorSelector);
     }
 
     public function submitFormSuccessfully(\FunctionalTester $I)
     {
-        $I->submitForm('#contact-form', [
+        $I->submitForm(ContactFormPage::$formSelector, [
             'ContactForm[name]' => 'tester',
             'ContactForm[email]' => 'tester@example.com',
             'ContactForm[subject]' => 'test subject',
@@ -51,7 +53,7 @@ class ContactFormCest
             'ContactForm[verifyCode]' => 'testme',
         ]);
         $I->seeEmailIsSent();
-        $I->dontSeeElement('#contact-form');
+        $I->dontSeeElement(ContactFormPage::$formSelector);
         $I->see('Thank you for contacting us. We will respond to you as soon as possible.');        
     }
 }
