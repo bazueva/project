@@ -86,8 +86,8 @@ class NotifyRocketManager extends \yii\base\Component
     public function setUrl(): void
     {
         $urlFromSetting = Settings::getValue(self::NAME_SETTING_ROCKET);
-        if ($urlFromSetting && $urlFromSetting->value) {
-            $this->url = $urlFromSetting->value;
+        if ($urlFromSetting) {
+            $this->url = $urlFromSetting;
         }
     }
 }
