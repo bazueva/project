@@ -59,6 +59,7 @@ class NewsTest extends \Codeception\Test\Unit
         $this->assertTrue($news->save());
         $this->tester->seeRecord(News::class, [
             'name' => 'Test',
+            'slug' => 'test',
             'description' => 'Test Test',
             'content' => 'Test Test Test',
             'act' => 1,
@@ -91,6 +92,7 @@ class NewsTest extends \Codeception\Test\Unit
         $this->assertTrue($news->save());
         $this->tester->seeRecord(News::class, [
             'name' => 'Test Update',
+            'slug' => 'test-update',
             'description' => 'Test Test Update',
             'content' => 'Test Test Test Update',
             'date' => '2018-08-06',
@@ -100,6 +102,7 @@ class NewsTest extends \Codeception\Test\Unit
         // возвращаем обратно
         $news->attributes = [
             'name' => '11',
+            'slug' => null,
             'description' => '<p>11</p>',
             'content' => '<p>11</p>',
             'date' => '2018-04-21',
@@ -122,6 +125,40 @@ class NewsTest extends \Codeception\Test\Unit
 
         // возвращаем обратно
         $news->delete();
+    }
+
+    /**
+     * Тестирование генерации slug при создании/изменении новости.
+     */
+    public function testGenerateSlug(): void
+    {
+        $news = new News();
+        $news->name = 'Привет!';
+        $news->save();
+        $this->tester->seeRecord(News::class, [
+            'name' => 'Привет!',
+            'slug' => 'privet'
+        ]);
+        //добавляем новость с таким же адресом
+        $newsTwo = new News();
+        $newsTwo->name = 'Привет!';
+        $newsTwo->description = 'testGenerateSlug';
+        $newsTwo->save();
+        $this->tester->dontSeeRecord(News::class, [
+            'name' => 'Привет!',
+            'slug' => 'privet',
+            'description' => 'testGenerateSlug'
+        ]);
+        //обновляем запись
+        $news->name = 'Привет Update';
+        $news->save();
+        $this->tester->seeRecord(News::class, [
+            'name' => 'Привет Update',
+            'slug' => 'privet-update'
+        ]);
+
+        $news->delete();
+        $newsTwo->delete();
     }
 
     /**

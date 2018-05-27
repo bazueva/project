@@ -69,7 +69,7 @@ class NotifyRocketManager extends \yii\base\Component
             'text' => $this->text
             ];
         $data['attachments'][0]['title'] = $model->name;
-        $data['attachments'][0]['title_link'] = Url::toRoute([$model->urlNews, 'id' => $model->id], true);
+        $data['attachments'][0]['title_link'] = Url::to(['/news/' . $model->slug], true);
         if ($model->description) {
             $data['attachments'][0]['text'] = strip_tags($model->description);
         }

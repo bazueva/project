@@ -15,9 +15,10 @@ class MainCest
     public function testMainMenuGuest(\FunctionalTester $I): void
     {
         $I->amOnPage('/');
-        $I->seeLink('Новости', '/index-test.php?r=news%2Findex', MainPage::$menuHeaderSelector);
-        $I->dontSeeLink('Редактировать новости', '/index-test.php?r=cms%2Fnews', MainPage::$menuHeaderSelector);
-        $I->dontSeeLink('Настройки', '/index-test.php?r=cms%2Fsettings', MainPage::$menuHeaderSelector);
+        $I->seeLink('Новости', '/news', MainPage::$menuHeaderSelector);
+        $I->click('Новости');
+        $I->dontSeeLink('Редактировать новости', '/cms/news', MainPage::$menuHeaderSelector);
+        $I->dontSeeLink('Настройки', '/cms/settings', MainPage::$menuHeaderSelector);
     }
 
     /**
@@ -27,14 +28,14 @@ class MainCest
      */
     public function testMainMenuAdmin(\FunctionalTester $I): void
     {
-        $I->amOnPage(['site/login']);
+        $I->amOnPage(['login']);
         $I->fillField('LoginForm[username]', 'admin');
         $I->fillField('LoginForm[password]', 'admin');
         $I->click('login-button');
         $I->amOnPage('/');
-        $I->seeLink('Новости', '/index-test.php?r=news%2Findex', MainPage::$menuHeaderSelector);
-        $I->seeLink('Редактировать новости', '/index-test.php?r=cms%2Fnews', MainPage::$menuHeaderSelector);
-        $I->seeLink('Настройки', '/index-test.php?r=cms%2Fsettings', MainPage::$menuHeaderSelector);
+        $I->seeLink('Новости', '/news', MainPage::$menuHeaderSelector);
+        $I->seeLink('Редактировать новости', '/cms/news', MainPage::$menuHeaderSelector);
+        $I->seeLink('Настройки', '/cms/settings', MainPage::$menuHeaderSelector);
     }
 
     /**
@@ -44,13 +45,13 @@ class MainCest
      */
     public function testMainMenuUser(\FunctionalTester $I): void
     {
-        $I->amOnPage(['site/login']);
+        $I->amOnPage(['login']);
         $I->fillField('LoginForm[username]', 'demo');
         $I->fillField('LoginForm[password]', 'demo');
         $I->click('login-button');
         $I->amOnPage('/');
-        $I->seeLink('Новости', '/index-test.php?r=news%2Findex', MainPage::$menuHeaderSelector);
-        $I->dontSeeLink('Редактировать новости', '/index-test.php?r=cms%2Fnews', MainPage::$menuHeaderSelector);
-        $I->dontSeeLink('Настройки', '/index-test.php?r=cms%2Fsettings', MainPage::$menuHeaderSelector);
+        $I->seeLink('Новости', '/news', MainPage::$menuHeaderSelector);
+        $I->dontSeeLink('Редактировать новости', '/cms/news', MainPage::$menuHeaderSelector);
+        $I->dontSeeLink('Настройки', '/cms/settings', MainPage::$menuHeaderSelector);
     }
 }

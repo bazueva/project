@@ -14,12 +14,12 @@ class NewsFrontCest
      */
     public function testNewsIndex(\FunctionalTester $I): void
     {
-        $I->amOnPage(['news/index']);
+        $I->amOnPage(['news']);
         $I->see('Новости', 'h1');
-        $I->seeLink('Тест rocket', '/index-test.php?r=news%2Fview&id=27', NewsPage::$blockNewsSelector);
+        $I->seeLink('Тест rocket', '/news/test-rocket', NewsPage::$blockNewsSelector);
         $I->see('10.05.2018', NewsPage::$blockNewsSelector);
         $I->see('Описание новости', NewsPage::$blockNewsSelector);
-        $I->seeLink('Читать', '/index-test.php?r=news%2Fview&id=27', NewsPage::$blockNewsSelector);
+        $I->seeLink('Читать', '/news/test-rocket', NewsPage::$blockNewsSelector);
     }
 
     /**
@@ -29,7 +29,7 @@ class NewsFrontCest
      */
     public function testNewsView(\FunctionalTester $I): void
     {
-        $I->amOnPage(['news/view', 'id'=>27]);
+        $I->amOnPage(['news/test-rocket']);
         $I->see('Тест rocket', 'h1');
         $I->see('10.05.2018', NewsPage::$newsDateNewsDetailSelector);
         $I->see('Полное описание новости', NewsPage::$contentNewsDetailSelector);

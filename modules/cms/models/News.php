@@ -2,6 +2,7 @@
 
 namespace app\modules\cms\models;
 
+use app\modules\cms\behaviors\SlugBehavior;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
 use app\modules\cms\behaviors\NotifyBehavior;
@@ -19,6 +20,7 @@ use yii\web\UploadedFile;
  * @property $image        string   Изображение
  * @property $created_at   int      Дата создания
  * @property $updated_at   int      Дата обновления
+ * @property $slug         string   ЧПУ
  */
 class News extends \yii\db\ActiveRecord
 {
@@ -58,16 +60,16 @@ class News extends \yii\db\ActiveRecord
     {
         return [
             [
-                ['name'],
+                ['name', 'slug'],
                 'required'
             ],
             [
-                'name',
+                ['name', 'slug'],
                 'string',
                 'max' => 255
             ],
             [
-                ['description', 'content', 'slug'],
+                ['description', 'content'],
                 'string'
             ],
             [
@@ -101,7 +103,7 @@ class News extends \yii\db\ActiveRecord
             'image' => 'Изображение',
             'created_at' => 'Дата создания',
             'updated_at' => 'Дата изменения',
-            'act' => 'Активность'
+            'act' => 'Активность',
         ];
     }
 
@@ -118,10 +120,15 @@ class News extends \yii\db\ActiveRecord
                    ActiveRecord::EVENT_BEFORE_UPDATE => ['updated_at']
                ]
            ],
-           'notifyBehavior' =>
-           [
+           /*[
                 'class' => NotifyBehavior::class,
                 'text' => 'Добавлена новость'
+           ]*/
+           [
+               'class' => SlugBehavior::class,
+               'attributes' => [
+                   ActiveRecord::EVENT_BEFORE_VALIDATE => ['slug']
+               ],
            ]
         ];
     }

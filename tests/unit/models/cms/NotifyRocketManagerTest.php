@@ -51,20 +51,21 @@ class NotifyRocketManagerTest extends \Codeception\Test\Unit
         ]);
         $model = new News([
             'id' => 24,
+            'slug' => 'rocket.chat',
             'name' => 'Rocket.Chat',
             'description' => 'Test',
             'image' => $file,
             'dirImages' => '_tests/data/upload/'
         ]);
         $this->assertEquals(
-            '{"text":"Example message","attachments":[{"title":"Rocket.Chat","title_link":"http:\/\/localhost\/index-test.php?r=news%2Fview&id=24","text":"Test","image_url":"http:\/\/localhost\/_tests\/data\/upload\/1.jpg"}]}',
+            '{"text":"Example message","attachments":[{"title":"Rocket.Chat","title_link":"http:\/\/localhost\/news\/rocket.chat","text":"Test","image_url":"http:\/\/localhost\/_tests\/data\/upload\/1.jpg"}]}',
             $notifyRocketManager->generationRequest($model)
         );
 
         $model->image = '';
         $model->description = '';
         $this->assertEquals(
-            '{"text":"Example message","attachments":[{"title":"Rocket.Chat","title_link":"http:\/\/localhost\/index-test.php?r=news%2Fview&id=24"}]}',
+            '{"text":"Example message","attachments":[{"title":"Rocket.Chat","title_link":"http:\/\/localhost\/news\/rocket.chat"}]}',
             $notifyRocketManager->generationRequest($model)
         );
     }
