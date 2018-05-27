@@ -33,8 +33,8 @@ class LoginFormCest
     {
         $I->submitForm('#login-form', []);
         $I->expectTo('see validations errors');
-        $I->see('Username cannot be blank.');
-        $I->see('Password cannot be blank.');
+        $I->see('Необходимо заполнить «Username»');
+        $I->see('Необходимо заполнить «Password»');
     }
 
     public function loginWithWrongCredentials(\FunctionalTester $I)

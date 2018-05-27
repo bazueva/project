@@ -5,9 +5,20 @@ namespace app\modules\cms\models;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
 use app\modules\cms\behaviors\NotifyBehavior;
+use yii\web\UploadedFile;
 
 /**
  * Модель новости.
+ *
+ * @property $id           int      Идентификатор
+ * @property $name         string   Название
+ * @property $description  string   Краткое описание
+ * @property $content      string   Подробное описание
+ * @property $date         string   Дата
+ * @property $act          bool     Активность
+ * @property $image        string   Изображение
+ * @property $created_at   int      Дата создания
+ * @property $updated_at   int      Дата обновления
  */
 class News extends \yii\db\ActiveRecord
 {
@@ -107,6 +118,7 @@ class News extends \yii\db\ActiveRecord
                    ActiveRecord::EVENT_BEFORE_UPDATE => ['updated_at']
                ]
            ],
+           'notifyBehavior' =>
            [
                 'class' => NotifyBehavior::class,
                 'text' => 'Добавлена новость'
@@ -122,7 +134,7 @@ class News extends \yii\db\ActiveRecord
         if (!$this->delete_image && !$this->image) {
             unset($this->image);
         } else {
-            if ($this->image) {
+            if ($this->image instanceof UploadedFile) {
                 $this->image->saveAs('uploads/' . $this->image->name);
             }
         }
