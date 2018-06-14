@@ -22,6 +22,7 @@ echo GridView::widget([
             }
         ],
         'name',
+        'slug',
         [
             'attribute' => 'date',
             'contentOptions' => function ($model, $key, $index, $column) {
@@ -79,7 +80,7 @@ echo GridView::widget([
             'value' => function ($data) {
                 return Html::a(
                 'Смотреть на сайте',
-                    Url::toRoute(['/news/view', 'id' => $data->id]),
+                    Url::to('news/' . $data->slug),
                     ['target' => '_blank']);
             }
         ]

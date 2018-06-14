@@ -55,6 +55,21 @@ $config = [
         'db' => $db,
         'urlManager' => [
             'showScriptName' => false,
+            'enablePrettyUrl' => true,
+            'enableStrictParsing' => true,
+            'rules' => [
+                '/' => 'site/index',
+                'login' => 'site/login',
+                'about' => 'site/about',
+                'news' => 'news/index',
+                'contact' => 'site/contact',
+                'cms/news' => 'cms/news/index',
+                'cms/<controller>/<action>' => 'cms/<controller>/<action>',
+                [
+                    'class' => \app\components\NewsUrlManager::class
+                ],
+                'cms/settings' => 'cms/settings/index',
+            ]
         ],
         'thumbnail' => [
             'class' => 'sadovojav\image\Thumbnail',

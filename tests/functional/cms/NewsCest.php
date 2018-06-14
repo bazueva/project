@@ -25,7 +25,7 @@ class NewsCest {
      */
     public function testIndexUser(\FunctionalTester $I): void
     {
-        $I->amOnPage(['site/login']);
+        $I->amOnPage(['login']);
         $I->fillField('LoginForm[username]', 'demo');
         $I->fillField('LoginForm[password]', 'demo');
         $I->click('login-button');
@@ -40,12 +40,12 @@ class NewsCest {
      */
     public function testIndexAdmin(\FunctionalTester $I): void
     {
-        $I->amOnPage(['site/login']);
+        $I->amOnPage(['login']);
         $I->fillField('LoginForm[username]', 'admin');
         $I->fillField('LoginForm[password]', 'admin');
         $I->click('login-button');
         $I->amOnPage(['cms/news']);
-        $I->seeCurrentUrlEquals('/index-test.php?r=cms%2Fnews');
+        $I->seeCurrentUrlEquals('/cms/news');
     }
 
     /**

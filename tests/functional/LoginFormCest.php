@@ -4,7 +4,7 @@ class LoginFormCest
 {
     public function _before(\FunctionalTester $I)
     {
-        $I->amOnRoute('site/login');
+        $I->amOnRoute('login');
     }
 
     public function openLoginPage(\FunctionalTester $I)

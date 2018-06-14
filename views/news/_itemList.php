@@ -8,7 +8,7 @@ use yii\helpers\{
 
 <div class="col-lg-4">
     <div class="news-name">
-        <a href="<?=Url::toRoute(['news/view', 'id' => $model->id])?>"><?= $model->name ?></a>
+        <a href="<?=Url::to([$model->slug])?>"><?= $model->name ?></a>
     </div>
     <?php
     echo Yii::$app->thumbnail->img(
@@ -24,9 +24,9 @@ use yii\helpers\{
              ]
          );
     ?>
-    <?=Yii::$app->formatter->asDate($model->date, 'dd.MM.yyyy') ?>
-    <?= $model->description?>
+    <?= Yii::$app->formatter->asDate($model->date, 'dd.MM.yyyy') ?>
+    <?= $model->description ?>
     <p>
-        <a class="btn btn-default" href="<?= Url::toRoute(['news/view', 'id' => $model->id])?>">Читать &raquo;</a>
+        <a class="btn btn-default" href="<?= Url::to([$model->slug])?>">Читать &raquo;</a>
     </p>
 </div>

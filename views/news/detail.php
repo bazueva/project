@@ -3,7 +3,7 @@
 <div class="news-image">
     <?php
     echo Yii::$app->thumbnail->img(
-            Yii::$app->params['pathFiles'].$model->image, [
+            Yii::$app->params['pathFiles'] . $model->image, [
                 'thumbnail' => [
                     'width' => 450,
                     'height' => 450,

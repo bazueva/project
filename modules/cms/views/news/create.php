@@ -19,11 +19,13 @@ if ($model->image) {
 <div class="row">
         <?php $form = ActiveForm::begin([
                 'id' => 'news-create',
+                'enableClientValidation' => false,
                 'options' => [
                     'enctype' => 'multipart/form-data'
                 ]
             ]);
             echo $form->field($model, 'name');
+            echo $form->field($model, 'slug');
             echo $form->field($model, 'description')->widget(TinyMce::className(), [
                 'options' => ['rows' => 6],
                 'language' => 'ru',
