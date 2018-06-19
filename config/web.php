@@ -20,6 +20,9 @@ $config = [
         'cms' => [
             'class' => 'app\modules\cms\CmsModule',
         ],
+        'api' => [
+            'class' => 'app\modules\api\ApiModule'
+        ]
     ],
     'components' => [
         'request' => [
@@ -69,6 +72,11 @@ $config = [
                     'class' => \app\components\NewsUrlManager::class
                 ],
                 'cms/settings' => 'cms/settings/index',
+                [
+                    'class' => '\yii\rest\UrlRule',
+                    'pluralize' =>  false,
+                    'controller' => 'api/news'
+                ]
             ]
         ],
         'thumbnail' => [

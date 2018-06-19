@@ -1,9 +1,14 @@
-Options +FollowSymlinks
-RewriteEngine On
+<IfModule mod_rewrite.c>
+    Options +FollowSymlinks
+    RewriteEngine On
+</IfModule>
 
-RewriteCond %{REQUEST_URI} !^/web/(assets|css|js|pdf)/
-RewriteCond %{REQUEST_URI} !index.php
-RewriteCond %{REQUEST_FILENAME} !-f [OR]
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^.*$ web/index.php
-RewriteRule ^.*$ web/index-test.php
+<IfModule mod_rewrite.c>
+    RewriteCond %{REQUEST_URI} ^/.*
+    RewriteRule ^(.*)$ web/$1 [L]
+
+    RewriteCond %{REQUEST_URI} !^/web/
+    RewriteCond %{REQUEST_FILENAME} !-f [OR]
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^.*$ web/index.php
+</IfModule>
