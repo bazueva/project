@@ -6,6 +6,7 @@ use app\modules\cms\behaviors\SlugBehavior;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
 use app\modules\cms\behaviors\NotifyBehavior;
+use yii\helpers\Url;
 use yii\web\UploadedFile;
 
 /**
@@ -146,5 +147,45 @@ class News extends \yii\db\ActiveRecord
             }
         }
         return parent::beforeSave($insert);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function fields(): array
+    {
+        return [
+            'id',
+            'name',
+            'description',
+            'content',
+            'image',
+            'image_url' => function () {
+                return $this->getUrlImage();
+            },
+            'date',
+            'created_at' => function (){
+                return \Yii::$app->formatter->asDateTime($this->created_at, 'Y-MM-dd, H:i:s');
+            },
+            'updated_at' => function (){
+                return \Yii::$app->formatter->asDateTime($this->created_at, 'Y-MM-dd, H:i:s');
+            },
+            'act',
+            'slug'
+        ];
+    }
+
+    /**
+     * Url-адрес изображения.
+     *
+     * @return string|null
+     */
+    public function getUrlImage(): ?string
+    {
+        $result = null;
+        if ($this->image) {
+            $result = Url::base(true) . '/uploads/' . $this->image;
+        }
+        return $result;
     }
 }
