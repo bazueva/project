@@ -1,5 +1,7 @@
 <?php
 
+namespace tests\functional\cms;
+
 use app\modules\cms\models\News;
 
 /**

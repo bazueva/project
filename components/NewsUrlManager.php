@@ -35,6 +35,11 @@ class NewsUrlManager extends BaseObject implements UrlRuleInterface
      */
     public function createUrl($manager, $route, $params)
     {
-        return $route;
+        $pathInfo = explode('/', $route);
+        if ($pathInfo[0] == $this->urlNews) {
+            return $route;
+        }
+
+        return false;
     }
 }

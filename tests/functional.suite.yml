@@ -10,5 +10,6 @@ class_name: FunctionalTester
 modules:
     enabled:
       - Filesystem
+      - Asserts
       - Yii2:
         entryScript: index-test.php

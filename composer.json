@@ -22,7 +22,8 @@
         "2amigos/yii2-date-picker-widget": "~1.0",
         "2amigos/yii2-switch-widget": "~1.0",
         "2amigos/yii2-file-input-widget": "~1.0",
-        "sadovojav/yii2-image-thumbnail": "dev-master"
+        "sadovojav/yii2-image-thumbnail": "dev-master",
+        "yiisoft/yii2-redis": "~2.0.0"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.0.0",
@@ -32,7 +33,8 @@
         "codeception/codeception": "^2.2.3",
         "codeception/verify": "~0.3.1",
         "codeception/specify": "~0.4.3",
-        "facebook/webdriver": "^1.0.1"
+        "facebook/webdriver": "^1.0.1",
+        "flow/jsonpath": "0.4.0"
     },
     "config": {
         "process-timeout": 1800,

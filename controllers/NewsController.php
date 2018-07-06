@@ -15,6 +15,20 @@ use yii\web\{
 class NewsController extends Controller
 {
     /**
+     * @inheritdoc
+     */
+    public function behaviors(): array
+    {
+        return [
+            [
+                'class' => 'yii\filters\PageCache',
+                'only' => ['index, view'],
+                'duration' => 3600,
+            ],
+        ];
+    }
+
+    /**
      * Список новостей.
      *
      * @return string
@@ -54,12 +68,21 @@ class NewsController extends Controller
         if (!$id)
             throw new HttpException(404, 'Страница не найдена');
 
-        $model = News::findOne($id);
+        if (!$model = \Yii::$app->redis->get(News::$cacheKey . $id)) {
+            $model = News::findOne($id);
+            if ($model) {
+                \Yii::$app->redis->set(News::$cacheKey . $id, serialize($model));
+            }
+        } else {
+            $model = unserialize($model);
+        }
 
-        if (!$model)
+        if (!$model) {
             throw new HttpException(404, 'Страница не найдена');
+        }
 
         $this->view->title = $model->name;
+
         return $this->render(
             'detail',
             [
