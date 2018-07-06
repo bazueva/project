@@ -47,6 +47,11 @@ class News extends \yii\db\ActiveRecord
     public $dirImages = '@web/uploads/';
 
     /**
+     * @var string Ключ для кэша новости.
+     */
+    public static $cacheKey = 'news.id.';
+
+    /**
      * @inheritdoc
      */
     public static function tableName(): string
@@ -187,5 +192,14 @@ class News extends \yii\db\ActiveRecord
             $result = Url::base(true) . '/uploads/' . $this->image;
         }
         return $result;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function afterSave($insert, $changedAttributes)
+    {
+        parent::afterSave($insert, $changedAttributes);
+        \Yii::$app->redis->del(self::$cacheKey . $this->id);
     }
 }
